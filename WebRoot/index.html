@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="background-color:black;">
+        <div style="width: 1000px; margin: 0 auto;color:white;">
+            <div name="t">
+                <p>cookie:<input name="cookie" type="text" style="width:35%;">
+                    parameters:<input name="para" type="text" style="width: 35%;">
+                    delay:<input name="delay" type="text" value="45" style="width: 5%;">
+                </p>
+            </div>
+            <input type="button" value="submit" onclick="submit();">
+            <input type="button" value="cleanUp" onclick="cleanUp();">
+        </div>
+        <div style="width: 1000px; margin: 0 auto;color:white;">
+            <textarea style="width: 800px;height: 400px;margin: 50px 100px;" id="response"></textarea>
+        </div>        
+        <script>
+            var xmlhttp;
+            function ajax(){
+                if(window.XMLHttpRequest){
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else{
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                return xmlhttp;
+            }
+            function submit(){
+                divs = document.getElementsByName('t');
+                for(var i = 0;i < divs.length;i++){
+                    timer(divs[i]);
+                }
+                
+            }
+            function timer(div){
+                var inputs = div.getElementsByTagName('input');
+                if(inputs[0].value == "")
+                    return ;
+                sendData(inputs[0].value, inputs[1].value);
+                setInterval(function(){
+                   sendData(inputs[0].value, inputs[1].value);
+                }, inputs[2].value * 1000);
+            }
+            
+            function sendData(cookie, para){
+                xmlhttp = ajax();
+                xmlhttp.open("POST","tiebaSend.do",false);
+                xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;");
+                var s = "cookie=" + cookie + "&";
+                var s = s + "para=" + encodeURIComponent(para);
+                xmlhttp.send(s);
+                addToTextArea(xmlhttp.responseText);
+            }
+            
+            
+            function addToTextArea(s){
+                var textarea = document.getElementById('response');
+                    textarea.value = textarea.value + s + "\r";
+                textarea.scrollTop = textarea.scrollHeight;
+            }
+            
+            function cleanUp(){
+                document.getElementById("response").value = "";
+            }
+        </script>
+        
+    </body>
+</html>
