@@ -1,0 +1,11 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  thymeleaf:
+      cache: false
+      prefix: /views/
+      suffix: .html
+
+server:
+  port: 5014

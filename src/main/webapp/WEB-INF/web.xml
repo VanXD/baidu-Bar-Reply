@@ -4,12 +4,4 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-    <servlet-name>tb</servlet-name>
-    <servlet-class>tb.tb</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>tb</servlet-name>
-    <url-pattern>/tiebaSend.do</url-pattern>
-  </servlet-mapping>
 </web-app>
